@@ -1,4 +1,3 @@
-// JavaScript Validation
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
     const form = event.target;
     const name = form.name.value;
@@ -33,6 +32,19 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     if (!dob) {
         valid = false;
         errorMessage += 'Please enter your date of birth.\n';
+    } else {
+        const today = new Date();
+        const birthDate = new Date(dob);
+        const age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        if (age < 18 || age > 55) {
+            valid = false;
+            errorMessage += 'Age must be between 18 and 55 years.\n';
+        }
     }
 
     // Custom validation for accept terms
@@ -54,6 +66,17 @@ document.getElementById('registrationForm').addEventListener('submit', function(
             acceptTerms: acceptTerms
         };
         localStorage.setItem('formData', JSON.stringify(formData));
+
+        // Add data to the table
+        const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+        const newRow = table.insertRow();
+        newRow.insertCell(0).innerText = name;
+        newRow.insertCell(1).innerText = email;
+        newRow.insertCell(2).innerText = password;
+        newRow.insertCell(3).innerText = dob;
+        newRow.insertCell(4).innerText = acceptTerms ? 'Yes' : 'No';
+
+        event.preventDefault(); // Prevent form submission for demonstration purposes
     }
 });
 
@@ -67,5 +90,14 @@ window.addEventListener('load', function() {
         document.getElementById('password').value = formData.password;
         document.getElementById('dob').value = formData.dob;
         document.getElementById('acceptTerms').checked = formData.acceptTerms;
+
+        // Add data to the table
+        const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+        const newRow = table.insertRow();
+        newRow.insertCell(0).innerText = formData.name;
+        newRow.insertCell(1).innerText = formData.email;
+        newRow.insertCell(2).innerText = formData.password;
+        newRow.insertCell(3).innerText = formData.dob;
+        newRow.insertCell(4).innerText = formData.acceptTerms ? 'Yes' : 'No';
     }
 });
