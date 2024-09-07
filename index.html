@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Form with Validations and Web Storage</title>
+    <link rel="stylesheet" href="index.css">
+
+  </head>
+  <body>
+    <form
+      id="registrationForm"
+      action="https://example.com/submit"
+      method="POST"
+    >
+      <!-- Name Field -->
+      <label for="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        minlength="3"
+        maxlength="50"
+      />
+      <br /><br />
+
+      <!-- Email Field -->
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
+      <br /><br />
+
+      <!-- Password Field -->
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        required
+        minlength="8"
+      />
+      <br /><br />
+
+      <!-- Date of Birth Field -->
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" name="dob" required />
+      <br /><br />
+
+      <!-- Accept Terms & Conditions Checkbox -->
+      <input type="checkbox" id="acceptTerms" name="acceptTerms" required />
+      <label for="acceptTerms">Accept Terms & Conditions</label>
+      <br /><br />
+
+      <!-- Submit Button -->
+      <button type="submit">Submit</button>
+    </form>
+
+    <script src="index.js"></script>
+  </body>
+</html>
